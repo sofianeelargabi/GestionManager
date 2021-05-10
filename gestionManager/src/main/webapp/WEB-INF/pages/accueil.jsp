@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/accueilCss.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-  <link href="css/navbarCss.css" rel="stylesheet" />
+
     <!-- Bootstrap CSS  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <!-- Font awesome -->
+    <link href="\C:\Users\afpa\Documents\fontawesome/css/all.css" rel="stylesheet">
+    <!--load all styles -->
 
     <!-- MDBootstrap Datatables CSS  -->
     <link href="css/addons/datatables.min.css" rel="stylesheet">
@@ -37,26 +42,26 @@
     <script type="text/javascript" src="js/addons/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-  <!-- Font awesome -->
-    <link href="\C:\Users\afpa\Documents\fontawesome/css/all.css" rel="stylesheet">
+	
 </head>
+
+
 <body>
-<nav class="navbar navbar-expand-sm bg-light navbar-dark">
-        <div class="navbar-brand" >
-            <a href="LoginHtml.html"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=120 width=110>  </a>  
-        </div>
-       <ul class="navbar-nav">
-      
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Qui sommes-nous ?</a>
-        </li>
-        <li class="nav-item" id="deco">
-          <a class="nav-link active" href="#">Connexion</a>
-        </li>
-      </ul>
-    </nav>
+	<%@ include file="/WEB-INF/resources/Include/navbarConnecte.jsp"%>
+	
+	<div class="welcome">
+		<h1>Bonjour & Bienvenue</h1>
+	</div>
+	<div class="phrase">
+		<p>Facilitez la gestion de vos employés grâce à votre application
+			Manager delight</p>
+	</div>
+	<div class="but">
+		<button type="button" class="btn btn-lg btn-primary">JOIN US NOW</button>
+	</div>
+	<%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
 </body>
+
+
+
 </html>

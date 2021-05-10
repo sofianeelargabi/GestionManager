@@ -1,0 +1,32 @@
+.nav-link{
+     font-size: 20px;
+    }
+    .navbar-nav{
+        color: rgb(0, 0, 0);
+    }
+    .navbar-dark .navbar-nav .nav-item .nav-link{
+        color: rgb(238, 232, 232);
+        font-style: italic;
+      }
+        
+      body{
+        background-image:url(stars2.jpg);
+        background-size: cover;
+       
+      }
+      .navbar-dark{
+        background-image:url(stars2.jpg);
+        background-size: unset;
+      }
+  .nav .form .item .btn {
+  color:red;
+  }  
+ .btn {
+ 
+    color: black;
+    
+    
+} 
+.drop{
+	background:  color: rgb(238, 232, 232);;
+}

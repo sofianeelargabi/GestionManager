@@ -1,0 +1,17 @@
+      .welcome{
+         display: flex;
+         justify-content: center;
+          color:rgb(238, 232, 232);
+          margin-top: 9%;
+          font-weight: bold;
+          font-style: italic;
+          
+      }
+    .phrase, .but{
+        display: flex;
+        justify-content: center;
+         color: rgb(238, 232, 232);
+         margin-top: 2%;
+         font-weight: bold;
+         font-style: italic;
+     }

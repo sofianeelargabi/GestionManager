@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
+<title><spring:message code="login.title"></spring:message></title>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
@@ -33,15 +36,22 @@
 <body>
 <%@ include file="/WEB-INF/resources/Include/navbar.jsp"%>
 
+		
+		
 <div class="login-dark">
-        <form method="post">
-            <h2 class="sr-only">Login Form</h2>
+        <form:form action="accueil" method="post" modelAttribute="compte">
+          
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
-            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="form-group"><a href="AccueilHtml.html" class="btn btn-primary btn-block">Connexion</a></div>
-            <a href="#" class="forgot">Email ou mot de passe oublié ?</a>
-          </form>
+            
+            <spring:message var="placeholderLog" code="login.placeholderLogin"></spring:message>
+            <div class="form-group"><form:input class="form-control" path="login" type="text" placeholder='${placeholderLog}'></form:input></div>
+            
+            <spring:message var="placeholderMdp" code="login.placeholderMdp"></spring:message>
+            <div class="form-group"><form:input class="form-control" path="password" type="password"  placeholder='${placeholderMdp}'></form:input></div>
+          
+            <div class="form-group"><input type="submit" value="<spring:message code="login.connexion"></spring:message>" class="btn btn-primary btn-block"></div>
+            <a href="#" class="forgot"><spring:message code="login.mdpOublie"></spring:message></a>
+          </form:form>
     </div>
     
    

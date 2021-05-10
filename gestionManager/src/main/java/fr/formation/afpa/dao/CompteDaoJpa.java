@@ -8,17 +8,19 @@ import javax.persistence.Persistence;
 
 import org.springframework.stereotype.Repository;
 
-import fr.formation.afpa.domain.Employee;
+import fr.formation.afpa.domain.Compte;
 
 @Repository
-public class EmployeeDaoJpa implements IEmployeeDaoJpa {
+public class CompteDaoJpa implements ICompteDaoJpa{
 	private EntityManagerFactory enf;
 	private EntityManager em;
 	
-	public EmployeeDaoJpa() {
+	
+	public CompteDaoJpa() {
 		enf = Persistence.createEntityManagerFactory("unitBD");
 		em=enf.createEntityManager();
 	}
+	
 	
 	public void beginTransaction() {
 		em = enf.createEntityManager();
@@ -30,32 +32,27 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	}
 	public void rollBackTransaction() {
 		em.getTransaction().rollback();//fin de la transaction soit begin soit rollback
+		
 	}	
-	public Employee findById(Integer id) {
-		return em.find(Employee.class, id);
+	
+	public Compte validation(String log, String mdp) {
+	
+		System.out.println("je suis dans la méthode comptedaoJpa");
+
+		String hql = "from Compte where login = :login";
+		Compte compte = (Compte) em.createQuery(hql).setParameter("login", log).getSingleResult();
+		if (compte != null && compte.getPassword().equals(mdp)&& compte.getLogin().equals(log)) {
+			System.out.println(compte.getLogin());
+			System.out.println(compte.getPassword());
+			return compte;
+			
+		} else {
+			System.out.println("pas le bon mdp");
+			return null;
+			
+		}
+		
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Employee> findAll() {
-		return em.createQuery("select emp from Employee emp").getResultList();
-	}
-
-	public Integer save(Employee e) {
-		em.persist(e);
-		return e.getEmpId();
-	}
-
-	public Employee update(Employee e) {
-		return em.merge(e);
-	}
-
-	public void delete(Employee e) {
-		em.remove(e);
-	}
-
-	public void deleteById(Integer id) {
-		Employee emp = findById(id);
-		delete(emp);
-	}
-
+	
 }

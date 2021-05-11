@@ -30,8 +30,25 @@ public class ServiceEmploye {
 
 	}
 
+	public Integer save(Employee e) {
+		dao.save(e);
+		return e.getEmpId();
+	}
 	public void setDao(IEmployeeDaoJpa dao) {
 		this.dao = dao;
 	}
 
+	public Employee findById(Integer id) {
+		return dao.findById(id);
+		
+	}
+	
+	public List<Employee> findManagers(){
+		return dao.findManagers();
+		
+	}
+	public List<Employee> findEmpSansManager() {
+		return dao.findEmpSansManager();
+		
+	}
 }

@@ -9,7 +9,8 @@ public interface IEmployeeDaoJpa {
 	//read
 	Employee findById(Integer id);
 	List<Employee> findAll();
-	
+	List<Employee> findManagers();
+	List<Employee> findEmpSansManager();
 	//create
 	Integer save(Employee e);
 	

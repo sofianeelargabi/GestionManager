@@ -24,7 +24,7 @@ public class ServiceCompte {
 		System.out.println("je suis dans la méthode serviceCompte");
 	
 		Compte compte = dao.validation(login, pwd);
-		dao.validation(login, pwd);
+	//	dao.validation(login, pwd);
 		System.out.println("ici");
 		return compte;
 		

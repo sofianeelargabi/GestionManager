@@ -41,7 +41,12 @@
     <link href="\C:\Users\afpa\Documents\fontawesome/css/all.css" rel="stylesheet">
 </head>
 <body>
+
 <nav class="navbar navbar-expand-sm bg-light navbar-dark">
+<a href="${pageContext.request.contextPath}/form?lang=en"><img
+		src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	<a href="${pageContext.request.contextPath}/form?lang=fr"><img
+		src="img/france.png" alt="Français" height=30 width=30 /></a>
         <div class="navbar-brand" >
             <a href="LoginHtml.html"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=120 width=110>  </a>  
         </div>
@@ -57,6 +62,7 @@
           <a class="nav-link active" href="#">Connexion</a>
         </li>
       </ul>
+      
     </nav>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +42,9 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	}
 
 	public Integer save(Employee e) {
+		beginTransaction();
 		em.persist(e);
+		commitTransaction();
 		return e.getEmpId();
 	}
 
@@ -56,6 +59,26 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	public void deleteById(Integer id) {
 		Employee emp = findById(id);
 		delete(emp);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> findManagers() {
+		
+	    List<Employee> list = em.createQuery("from Employee WHERE empId IN (SELECT manager FROM Employee))", Employee.class).getResultList();
+        return list;
+		
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Employee> findEmpSansManager() {
+		
+		String hql = ("from Employee where manager=null");
+		List<Employee> list = em.createQuery(hql).getResultList();
+		
+		return list;
 	}
 
 }

@@ -24,9 +24,11 @@
                 <a><button class="nav-link btn">Accueil</button></a>
             </li>
             </form:form>
+            <form:form class="form" action="manager" method="post">
             <li class="nav-item item">
-                <a class="nav-link" href="#">Managers</a>
+            <a><button class="nav-link btn">Managers</button></a>
             </li>
+              </form:form>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
@@ -36,13 +38,17 @@
                <form:form class="form" action="employe" method="post">
                <a><button class="nav-link btn">Liste Employés</button></a>
                </form:form>
-                  <a class="dropdown-item" href="#">Ajout Employé</a>
-                  
+                <form:form class="form" action="ajoutEmploye" method="get">
+                 <a><button class="nav-link btn">Ajout Employés</button></a>
+                </form:form>  
               </div>
           </li>
+          <form:form class="form" action="parametres" method="get">
             <li class="nav-item item">
-                <a class="nav-link" href="#">Paramètres</a>
+             <a><button class="nav-link btn">Paramètres</button></a>
+              
             </li>
+            </form:form>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>

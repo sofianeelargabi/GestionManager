@@ -8,7 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/employesCss.css">
+
+<link rel="stylesheet" href="css/manager.css">
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"
@@ -59,44 +60,49 @@
 	src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
 <script
 	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-
 </head>
 <body>
 	<%@ include file="/WEB-INF/resources/Include/navbarConnecte.jsp"%>
-	
-	
+
+	<div class="tit">Liste Manager</div>
 
 	<div class="table-responsive ticketList">
-		<table id="dtBasicExample"
-			class="table table-striped table-bordered table-sm table"
+		<table id="dataTable" class="table table-striped table-bordered materialTable"
 			cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					
+
 					<th class="th-sm">Nom</th>
 					<th class="th-sm">Prenom</th>
 					<th class="th-sm">Date début</th>
 					<th class="th-sm">Titre</th>
 					<th class="th-sm">Manager</th>
-
-
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${employees}" var="employee">
+				<c:forEach items="${managers}" var="manager">
+					<tr class="" id="collapseme">
+
+						<td>${manager.firstName}</td>
+						<td>${manager.lastName }</td>
+						<td>${manager.startDate }</td>
+						<td>${manager.title }</td>
+						<td>${manager.manager.firstName}${manager.manager.lastName}</td>
+
+					</tr>
 					<tr>
-					
-						<td>${employee.firstName}</td>
-						<td>${employee.lastName }</td>
-						<td>${employee.startDate }</td>
-						<td>${employee.title }</td>
-						<td>${employee.manager.firstName} ${employee.manager.lastName}</td>
+						<td class="hiddenRow" colspan="6">
+							<div class="collapse out" id="test">Demo1</div>
+						</td>
 					</tr>
 				</c:forEach>
+
+
+
 			</tbody>
 			<tfoot>
 				<tr>
-					
+
 					<th>Nom</th>
 					<th>Prenom</th>
 					<th>Date début</th>
@@ -106,8 +112,15 @@
 			</tfoot>
 		</table>
 	</div>
-<script src="js/jsImports.js"></script>
+	<script>
+	$( function () {
+	    $('.materialTable').dataTable({
+	        "aoColumnDefs": [{ "sClass": "text-center", "aTargets": [ 0,8 ] },
+	                         { 'bSortable': false, 'aTargets': [ 8 ] }],
+	    });
+	});
+	</script>
+
 
 </body>
-
 </html>

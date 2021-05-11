@@ -1,0 +1,36 @@
+.ticketList{
+    margin-top: 2%;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding-top:1%;
+    padding-bottom:1%;
+    padding: 1%;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border:none;
+  
+    border-radius: 2%/2%;
+    background-color: rgb(238, 232, 232,0.5);
+  }
+
+  table,thead {
+    border-collapse: collapse;
+    border: 1px solid black;
+    color: black;
+  }
+  td a {
+    display:block;
+    width:100%;
+    text-decoration:none;
+    color: black;
+}
+.tit{
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  
+}
+.hiddenRow {
+    padding: 0 !important;
+}

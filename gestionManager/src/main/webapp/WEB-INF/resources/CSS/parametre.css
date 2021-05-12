@@ -5,8 +5,9 @@
 }
   .ticketList{
     margin-top: 5%;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 23%;
+    margin-right: 23%;
+    margin-bottom: 5%;
     padding-top:1%;
     padding-bottom:1%;
 
@@ -27,4 +28,53 @@
     width:100%;
     text-decoration:none;
     color: black;
+}
+.nav-link {
+	font-size: 20px;
+}
+
+.navbar-nav {
+	color: rgb(0, 0, 0);
+}
+
+.navbar-dark .navbar-nav .nav-item .nav-link {
+	color: rgb(238, 232, 232);
+	font-style: italic;
+}
+
+body {
+	background-image: url(stars2.jpg);
+	background-size: cover;
+}
+
+.navbar-dark {
+	background-image: url(stars2.jpg);
+	background-size: unset;
+}
+
+.nav .form .item .btn {
+	font-size:18.5px;
+}
+
+#navbarDropdownMenuLink{
+	
+	font-size:18.5px;
+}
+
+.btn {
+	color: black;
+}
+/* .dropmenu{
+	background-color:  rgb(153, 153, 153);
+} */
+#deroulant{
+	background-color: rgb(153, 153, 153);
+}
+
+.langues{
+	margin-left:35%;
+}
+.btnValid{
+	display:flex;
+	justify-content:center
 }

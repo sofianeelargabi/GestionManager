@@ -79,5 +79,5 @@
 
 
 </body>
-<%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
+
 </html>

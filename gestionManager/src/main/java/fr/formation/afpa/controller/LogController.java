@@ -5,7 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,15 +23,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.formation.afpa.domain.Compte;
+import fr.formation.afpa.domain.Department;
 import fr.formation.afpa.domain.Employee;
 import fr.formation.afpa.service.ServiceCompte;
 import fr.formation.afpa.service.ServiceEmploye;
 
 @Controller
 public class LogController {
-
+	private static final Log log = LogFactory.getLog(LogController.class);
 	ServiceCompte service;
-	ServiceEmploye serviceEmp;
+	ServiceEmploye serviceEmp; 
 
 	public LogController() {
 		System.out.println("constructeur logController Vide");
@@ -46,6 +51,14 @@ public class LogController {
 		m.addAttribute("compte", new Compte());
 
 		return "login";
+
+	}
+	@RequestMapping(path = "/accueil", method = RequestMethod.GET)
+	public String getAccueilFirstTime() {
+
+		
+
+		return "accueil";
 
 	}
 
@@ -80,6 +93,16 @@ public class LogController {
 		return "employes";
 
 	}
+	/* Affiche la liste des employés*/
+	@RequestMapping(path = "/employeRedirect", method = RequestMethod.GET)
+	public String getEmployeRedirect(Model m) {
+
+		List<Employee> employees = serviceEmp.findAll();
+		m.addAttribute("employees", employees);
+
+		return "employes";
+
+	}
 	
 	/*Redirect vers la page d'accueil qd on est connecté*/
 	@RequestMapping(path = "/accueilConnecte", method = RequestMethod.GET)
@@ -87,12 +110,14 @@ public class LogController {
 
 		return "accueil";
 	}
+	
+	
 	/*affiche l'ajout employé la première fois*/
 	@RequestMapping(path = "/ajoutEmploye", method = RequestMethod.GET)
 	public String getAjoutEmploye(Model m) {
 		List<Employee> employees = serviceEmp.findAll();
 		System.out.println(employees);
-		m.addAttribute("emp",new Employee());
+		m.addAttribute("employee",new Employee());
 		m.addAttribute("employees", employees);
 		
 		
@@ -101,33 +126,54 @@ public class LogController {
 	
 	/*Enregistre l'employé en bdd*/
 	@RequestMapping(path = "/ajoutEmploye", method = RequestMethod.POST)
-	public String getSaveEmploye(@ModelAttribute Employee emp, BindingResult result,@RequestParam Integer manager,Date startDate) {
+	public String getSaveEmploye(@ModelAttribute Employee employee, BindingResult result,@RequestParam Integer manager,Date startDate,String dept) {
+	   
+	    if (manager != null) {
+	    System.out.println(dept);	
 		System.out.println("manager " +manager);
 		System.out.println("startDate " +startDate);
+		int dptId = Integer.parseInt(dept);
+		
+		Department department = new Department();
 		Employee employe = serviceEmp.findById(manager);
 		
+		department.setDeptId(dptId);
 		
-		emp.setManager(employe);
-		System.out.println(emp);
+		employee.setManager(employe);
+		employee.setDepartment(department);
+		
+		
+		System.out.println(employee);
+	    }
+		serviceEmp.save(employee);
 	
-		serviceEmp.save(emp);
-	
-		return "accueil";
+		return "redirect:/employeRedirect";
 	}
 	
 	 /* Affiche la liste des managers*/
-		@RequestMapping(path = "/manager", method = RequestMethod.POST)
+		@RequestMapping(path = "/manager", method = RequestMethod.GET)
 		public String getManager(Model m) {
 
 			List<Employee> managers = serviceEmp.findManagers();
-			System.out.println(managers);
 			m.addAttribute("managers", managers);
+			
 
 			return "manager";
 
 		}
-		
-		
+		 /* Affiche la liste des subordonnés*/
+		@RequestMapping(path = "/listeSub", method = RequestMethod.GET, params = {"idmanager"})
+		public String getSubordonnés(Model m,@RequestParam(name="idmanager",required = true) String idmanager) {
+			System.out.println(idmanager);
+			Integer intmanager = Integer.parseInt(idmanager);
+			List<Employee> subordonnes = serviceEmp.getSubordonnes(intmanager);
+			System.out.println(subordonnes);
+			m.addAttribute("subordonnes", subordonnes);
+			
+
+			return "subordonne";
+
+		}
 		
 		
 		
@@ -152,9 +198,16 @@ public class LogController {
 			return "parametre";
 
 		}
+		
 	
-	
-	
+		@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	    public String logout(HttpServletRequest request) {
+	      
+	        HttpSession httpSession = request.getSession();
+	        httpSession.invalidate();
+	        return "redirect:/";
+	    }
+
 	
 	
 	

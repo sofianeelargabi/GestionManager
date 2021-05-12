@@ -58,55 +58,74 @@
 	<%@ include file="/WEB-INF/resources/Include/navbarConnecte.jsp"%>
 	<div class="tit">Formulaire d'enregistrement</div>
 	<div class="gen2">
-		<form:form action="ajoutEmploye" method="post" modelAttribute="emp">
+		<form:form action="ajoutEmploye" method="post"
+			modelAttribute="employee">
 
 			<div class="row mb-4 inpu">
 
 				<div class="col">
 					<div class="form-outline">
-					  <spring:message code="emp.placeholderName" var="placeholderName"/> 
-						<form:input type="text" id="form6Example2" path="firstName" class="form-control" placeholder='${placeholderName}'/> 
-						<label class="info" class="form-label" for="form6Example2"><spring:message code="emp.nom" /></label>
+						<spring:message code="emp.placeholderName" var="placeholderName" />
+						<form:input type="text" id="form6Example2" path="firstName"
+							class="form-control" placeholder='${placeholderName}' />
+						<label class="info" class="form-label" for="form6Example2"><spring:message
+								code="emp.nom" /></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-outline mb-4">
-			<spring:message code="emp.placeholderPrenom" var="placeholderPrenom" />
-				<form:input type="text" id="form6Example5" path="lastName" class="form-control" placeholder='${placeholderPrenom }' /> 
-				<label class="info" class="form-label" for="form6Example5"><spring:message code="emp.prenom" /></label>
+				<spring:message code="emp.placeholderPrenom" var="placeholderPrenom" />
+				<form:input type="text" id="form6Example5" path="lastName"
+					class="form-control" placeholder='${placeholderPrenom }' />
+				<label class="info" class="form-label" for="form6Example5"><spring:message
+						code="emp.prenom" /></label>
 			</div>
 
 			<div class="form-outline mb-4">
-			<spring:message code="emp.placeholderDate" var="placeholderDate"/>
-				<form:input type="date" id="form6Example5" path="startDate" class="form-control" placeholder='${placeholderDate }' />
-				 <label class="info" class="form-label" for="form6Example5"><spring:message code="emp.date" /></label>
+				<spring:message code="emp.placeholderDate" var="placeholderDate" />
+				<form:input type="text" id="form6Example5" path="startDate"
+					class="form-control" placeholder='${placeholderDate }' />
+				<label class="info" class="form-label" for="form6Example5"><spring:message
+						code="emp.date" /></label>
 			</div>
 
 			<div class="form-outline mb-4">
-			<spring:message code="emp.placeholderTitle" var="placeholderTitle" />
-				<form:input type="text" id="tit" path="title" class="form-control" placeholder='${placeholderTitle }' /> 
-				<label class="info" class="form-label" for="tit"><spring:message code="emp.titre" /></label>
+				<spring:message code="emp.placeholderTitle" var="placeholderTitle" />
+				<form:input type="text" id="tit" path="title" class="form-control"
+					placeholder='${placeholderTitle }' />
+				<label class="info" class="form-label" for="tit"><spring:message
+						code="emp.titre" /></label>
 			</div>
+
+
+			<form:select path="manager" class="form-select"
+				aria-label="Default select example">
+				<form:option value="" label="--- Choix manager ---" />
+				<c:forEach items="${employees}" var="employee">
+					<form:option value="${employee.empId}" var="id" required="true">${employee.firstName} ${employee.lastName} </form:option>
+				</c:forEach>
 				
-			
-				<form:select path="manager" class="form-select" aria-label="Default select example">
-				<form:option value="NONE" label="--- Choix manager ---"/>
-				<c:forEach  items="${employees}" var="employee">
-				<form:option  value="${employee.empId}" var="id"/>
+			</form:select>
+
+		<br>
+		<br>
+			<select class="form-select" name="dept" id="dept-select">
+				<option value="">--Veuillez choisir un Département--</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
 				
-			    </c:forEach>
-			    <form:hidden path="manager" value="${id}" />
-				</form:select>
-			
+			</select>
 			<!-- Submit button -->
-			
+
 			<div class="save">
-				<button type="submit" class="btn btn-primary btn-block mb-4">Enregistrer</button>
+				<button type="submit" onclick="return onButtonClick();" class="btn btn-primary btn-block mb-4">Enregistrer</button>
 			</div>
-			
+
 		</form:form>
 	</div>
+	<script src="js/jsImports.js"></script>
 
 </body>
 

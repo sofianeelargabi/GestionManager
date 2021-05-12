@@ -62,21 +62,79 @@
 
 </head>
 <body>
-	<%@ include file="/WEB-INF/resources/Include/navbarConnecte.jsp"%>
-	
+	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
+    
+
+        
+        <div class="navbar-brand" >
+            <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=105
+                    width=110> </a>
+        </div>
+        <ul class="navbar-nav nav">
+        <form:form class="form" action="accueilConnecte" method="get">
+            <li class="nav-item item">
+                <a><button class="nav-link btn"><spring:message code="nav.accueil"></spring:message></button></a>
+            </li>
+            </form:form>
+            <form:form class="form" action="manager" method="get">
+            <li class="nav-item item">
+            <a><button class="nav-link btn">Managers</button></a>
+            </li>
+              </form:form>
+           
+            <li class="nav-item dropdown " >
+              <a class="nav-link dropdown down" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><spring:message code="nav.employes"></spring:message> </a>
+             
+              <div class="dropdown-menu " id="deroulant" aria-labelledby="navbarDropdownMenuLink">
+               <form:form class="form" action="employe" method="post">
+               <a><button class="nav-link btn"><spring:message code="nav.listemp"></spring:message></button></a>
+               </form:form>
+                <form:form class="form" action="ajoutEmploye" method="get">
+                 <a><button class="nav-link btn"><spring:message code="nav.addemp"></spring:message></button></a>
+                </form:form>  
+              </div>
+          </li>
+          <form:form class="form" action="parametres" method="get">
+            <li class="nav-item item">
+             <a><button class="nav-link btn"><spring:message code="nav.param"></spring:message></button></a>
+              
+            </li>
+            </form:form>
+            <form:form class="form">
+            <li class="nav-item item">
+                <a class="nav-link btn" href="#">Contact</a>
+            </li>
+            </form:form>
+             <form:form class="form">
+            <li class="nav-item item">
+                <a class="nav-link btn" href="#"><spring:message code="login.QSM"></spring:message></a>
+            </li>
+            </form:form>
+             <form:form class="form" action = "logout" method="get">
+            <li class="nav-item item" id="deco">
+            <a><button onclick="return onButtonDeco();" class="nav-link btn"><spring:message code="nav.deco"></spring:message></button></a>
+      
+            </li>
+            </form:form>
+        </ul>
+        <div class="langues">
+        <a href="${pageContext.request.contextPath}/employeRedirect?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/employeRedirect?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+    </div>
+    </nav>
+	<div class="tit"><spring:message code="employes.titre"></spring:message></div>
 	
 
 	<div class="table-responsive ticketList">
 		<table id="dtBasicExample"
-			class="table table-striped table-bordered table-sm table"
-			cellspacing="0" width="100%">
+			class="table table-striped w-auto">
 			<thead>
 				<tr>
 					
-					<th class="th-sm">Nom</th>
-					<th class="th-sm">Prenom</th>
-					<th class="th-sm">Date début</th>
-					<th class="th-sm">Titre</th>
+					<th class="th-sm"><spring:message code="tab.nom"></spring:message></th>
+					<th class="th-sm"><spring:message code="tab.prenom"></spring:message></th>
+					<th class="th-sm"><spring:message code="tab.date"></spring:message></th>
+					<th class="th-sm"><spring:message code="tab.titre"></spring:message></th>
 					<th class="th-sm">Manager</th>
 
 
@@ -97,10 +155,10 @@
 			<tfoot>
 				<tr>
 					
-					<th>Nom</th>
-					<th>Prenom</th>
-					<th>Date début</th>
-					<th>Titre</th>
+					<th><spring:message code="tab.nom"></spring:message></th>
+					<th><spring:message code="tab.prenom"></spring:message></th>
+					<th><spring:message code="tab.date"></spring:message></th>
+					<th><spring:message code="tab.titre"></spring:message></th>
 					<th>Manager</th>
 				</tr>
 			</tfoot>

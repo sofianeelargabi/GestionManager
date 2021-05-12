@@ -15,23 +15,25 @@ import fr.formation.afpa.domain.Employee;
 public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	private EntityManagerFactory enf;
 	private EntityManager em;
-	
+
 	public EmployeeDaoJpa() {
 		enf = Persistence.createEntityManagerFactory("unitBD");
-		em=enf.createEntityManager();
+		em = enf.createEntityManager();
 	}
-	
+
 	public void beginTransaction() {
 		em = enf.createEntityManager();
-		em.getTransaction().begin(); //charge la transaction
+		em.getTransaction().begin(); // charge la transaction
 	}
-	
+
 	public void commitTransaction() {
-		em.getTransaction().commit();//fin de la transaction soit begin soit rollback
+		em.getTransaction().commit();// fin de la transaction soit begin soit rollback
 	}
+
 	public void rollBackTransaction() {
-		em.getTransaction().rollback();//fin de la transaction soit begin soit rollback
-	}	
+		em.getTransaction().rollback();// fin de la transaction soit begin soit rollback
+	}
+
 	public Employee findById(Integer id) {
 		return em.find(Employee.class, id);
 	}
@@ -64,21 +66,29 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> findManagers() {
-		
-	    List<Employee> list = em.createQuery("from Employee WHERE empId IN (SELECT manager FROM Employee))", Employee.class).getResultList();
-        return list;
-		
-		
+
+		List<Employee> list = em
+				.createQuery("from Employee WHERE empId IN (SELECT manager FROM Employee))", Employee.class)
+				.getResultList();
+		return list;
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> findEmpSansManager() {
-		
+
 		String hql = ("from Employee where manager=null");
 		List<Employee> list = em.createQuery(hql).getResultList();
-		
+
 		return list;
+	}
+
+	public List<Employee> getSubordonnes(Integer empId) {
+		String hql = "from Employee where manager.empId = :empId";
+		List<Employee> list = em.createQuery(hql, Employee.class).setParameter("empId", empId).getResultList();
+		return list;
+
 	}
 
 }

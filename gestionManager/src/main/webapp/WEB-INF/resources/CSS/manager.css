@@ -1,17 +1,30 @@
-.ticketList{
+/* .ticketList{
     margin-top: 2%;
-    margin-left: 15%;
-    margin-right: 15%;
+  
     padding-top:1%;
     padding-bottom:1%;
     padding: 1%;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
     border:none;
-  
+  width:90%;
     border-radius: 2%/2%;
     background-color: rgb(238, 232, 232,0.5);
-  }
+  } */
+.ticketList{
+	 margin-top: 5%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+    padding-top:1%;
+    padding-bottom:1%;
 
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border:solid 1px;
+  
+    border-radius: 2%/2%;
+   
+    background-color: rgb(238, 232, 232,0.7);
+	}
   table,thead {
     border-collapse: collapse;
     border: 1px solid black;
@@ -19,7 +32,7 @@
   }
   td a {
     display:block;
-    width:100%;
+    font-size:15px;
     text-decoration:none;
     color: black;
 }
@@ -31,6 +44,57 @@
   color: rgb(0, 0, 0);
   
 }
-.hiddenRow {
-    padding: 0 !important;
+.btn-link {
+   text-decoration:none;
+  color:black;
+  
+}
+a.nav-link{
+   font-size:15px;
+}
+.nav-link {
+	font-size: 20px;
+}
+
+.navbar-nav {
+	color: rgb(0, 0, 0);
+}
+
+.navbar-dark .navbar-nav .nav-item .nav-link {
+	color: rgb(238, 232, 232);
+	font-style: italic;
+}
+
+body {
+	background-image: url(stars2.jpg);
+	background-size: cover;
+}
+
+.navbar-dark {
+	background-image: url(stars2.jpg);
+	background-size: unset;
+}
+
+.nav .form .item .btn {
+	font-size:18.5px;
+}
+
+#navbarDropdownMenuLink{
+	
+	font-size:18.5px;
+}
+
+.btn {
+	color: black;
+}
+/* .dropmenu{
+	background-color:  rgb(153, 153, 153);
+} */
+#deroulant{
+	background-color: rgb(153, 153, 153);
+}
+
+
+.langues{
+	margin-left:35%;
 }

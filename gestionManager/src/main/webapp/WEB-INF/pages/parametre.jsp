@@ -60,28 +60,88 @@
 <script
 	src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
 <body>
-	<%@ include file="/WEB-INF/resources/Include/navbarConnecte.jsp"%>
+	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
+    
+
+        
+        <div class="navbar-brand" >
+            <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=105
+                    width=110> </a>
+        </div>
+        <ul class="navbar-nav nav">
+        <form:form class="form" action="accueilConnecte" method="get">
+            <li class="nav-item item">
+                <a><button class="nav-link btn"><spring:message code="nav.accueil"></spring:message></button></a>
+            </li>
+            </form:form>
+            <form:form class="form" action="manager" method="get">
+            <li class="nav-item item">
+            <a><button class="nav-link btn">Managers</button></a>
+            </li>
+              </form:form>
+           
+            <li class="nav-item dropdown " >
+              <a class="nav-link dropdown down" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><spring:message code="nav.employes"></spring:message> </a>
+             
+              <div class="dropdown-menu " id="deroulant" aria-labelledby="navbarDropdownMenuLink">
+               <form:form class="form" action="employe" method="post">
+               <a><button class="nav-link btn"><spring:message code="nav.listemp"></spring:message></button></a>
+               </form:form>
+                <form:form class="form" action="ajoutEmploye" method="get">
+                 <a><button class="nav-link btn"><spring:message code="nav.addemp"></spring:message></button></a>
+                </form:form>  
+              </div>
+          </li>
+          <form:form class="form" action="parametres" method="get">
+            <li class="nav-item item">
+             <a><button class="nav-link btn"><spring:message code="nav.param"></spring:message></button></a>
+              
+            </li>
+            </form:form>
+            <form:form class="form">
+            <li class="nav-item item">
+                <a class="nav-link btn" href="#">Contact</a>
+            </li>
+            </form:form>
+             <form:form class="form">
+            <li class="nav-item item">
+                <a class="nav-link btn" href="#"><spring:message code="login.QSM"></spring:message></a>
+            </li>
+            </form:form>
+             <form:form class="form" action = "logout" method="get">
+            <li class="nav-item item" id="deco">
+            <a><button onclick="return onButtonDeco();" class="nav-link btn"><spring:message code="nav.deco"></spring:message></button></a>
+      
+            </li>
+            </form:form>
+        </ul>
+        <div class="langues">
+        <a href="${pageContext.request.contextPath}/parametres?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/parametres?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+    </div>
+    </nav>
+    
 	<form:form action="parametres" method="post" modelAttribute="emp">
-<div class="global">
+
         <div class="table-responsive ticketList">
-            <table id="dtBasicExample" class="table table-striped table-bordered table-sm table" cellspacing="0"
+            <table id="dtBasicExample" class="table table-striped w-auto" cellspacing="0"
                 width="100%">
                 <thead>
                     <tr>
                         
-                        <th class="th-sm">Nom
+                        <th class="th-sm"><spring:message code="tab.nom"></spring:message>
 
                         </th>
-                        <th class="th-sm">Prenom
+                        <th class="th-sm"><spring:message code="tab.prenom"></spring:message>
 
                         </th>
-                        <th class="th-sm">Date début
+                        <th class="th-sm"><spring:message code="tab.date"></spring:message>
 
                         </th>
-                        <th class="th-sm">Titre
+                        <th class="th-sm"><spring:message code="tab.titre"></spring:message>
 
                         </th>
-                        <th class="th-sm">Choix Manager
+                        <th class="th-sm"><spring:message code="tab.choixManager"></spring:message>
 
                         </th>
                     </tr>
@@ -95,7 +155,7 @@
 						<td>${emp.title }</td>
 						<td>
 						<form:select path="manager" class="form-select" aria-label="Default select example">
-						<form:option value="NONE" label="--- Choix manager ---"/>
+						<form:option value="" label="--- Manager ---"/>
 						<c:forEach  items="${managers}" var="manager">
 						<form:option  value="${manager.firstName} ${manager.lastName}" var="id"/>
 				
@@ -113,22 +173,25 @@
                  </tbody>
                 <tfoot>
                     <tr>
-                        <th>Nom
+                        <th><spring:message code="tab.nom"></spring:message>m
                         </th>
-                        <th>Prenom
+                        <th><spring:message code="tab.prenom"></spring:message>
                         </th>
-                        <th>Date début
+                        <th><spring:message code="tab.date"></spring:message>
                         </th>
-                        <th>Titre
+                        <th><spring:message code="tab.titre"></spring:message>
                         </th>
-                        <th>Choix Manager
+                        <th><spring:message code="tab.choixManager"></spring:message>
                         </th>
                     </tr>
                 </tfoot>
             </table>
-            <input type="submit" value="Valider" class="nav-link btn-primary">
+            <br><br>
+            <div class="btnValid">
+            <input type="submit" value="Valider" class="btn btn-primary">
+            </div>
         </div>
-    </div>
+    
     
     </form:form>
    <script src="js/jsImports.js"></script>

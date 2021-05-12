@@ -11,6 +11,7 @@ public interface IEmployeeDaoJpa {
 	List<Employee> findAll();
 	List<Employee> findManagers();
 	List<Employee> findEmpSansManager();
+	List<Employee> getSubordonnes(Integer empId);
 	//create
 	Integer save(Employee e);
 	

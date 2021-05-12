@@ -51,4 +51,8 @@ public class ServiceEmploye {
 		return dao.findEmpSansManager();
 		
 	}
+	
+	public List<Employee> getSubordonnes(Integer empId) {
+		return dao.getSubordonnes(empId);
+	}
 }

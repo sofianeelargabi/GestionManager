@@ -50,14 +50,15 @@
 
 
 <body>
+<div class="head">
 	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
     
-
-        
         <div class="navbar-brand" >
             <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=105
                     width=110> </a>
         </div>
+        
+        <div>
         <ul class="navbar-nav nav">
         <form:form class="form" action="accueilConnecte" method="get">
             <li class="nav-item item">
@@ -88,14 +89,14 @@
               
             </li>
             </form:form>
-            <form:form class="form">
+            <form:form class="form" action="contact" method="get">
             <li class="nav-item item">
-                <a class="nav-link btn" href="#">Contact</a>
+               <a><button class="nav-link btn">Contact</button></a>
             </li>
             </form:form>
-             <form:form class="form">
+             <form:form class="form" action="qsm" method="get">
             <li class="nav-item item">
-                <a class="nav-link btn" href="#"><spring:message code="login.QSM"></spring:message></a>
+                <a><button class="nav-link btn"><spring:message code="login.QSM"></spring:message></button></a>
             </li>
             </form:form>
              <form:form class="form" action = "logout" method="get">
@@ -104,26 +105,38 @@
       
             </li>
             </form:form>
+            
         </ul>
-        <div class="langues">
+        </div>
+        
+        
+        
+        
+    </nav>
+	
+	<div class="langues">
+        
         <a href="${pageContext.request.contextPath}/accueil?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
 	   <a href="${pageContext.request.contextPath}/accueil?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
     </div>
-    </nav>
-	
+    
+    </div>
+    
+    
+    
 	<div class="welcome">
 		<h1><spring:message code="welcome.msg"></spring:message></h1>
 	</div>
 	<div class="phrase">
-	<p><spring:message code="welcome.phrase"></spring:message></p>
+	<p class="p"><spring:message code="welcome.phrase"></spring:message></p>
 		
 	</div>
 	<div class="but">
 		<button type="button" class="btn btn-lg btn-primary">JOIN US NOW</button>
 	</div>
-	<%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
+	
 </body>
 
-
+<%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
 
 </html>

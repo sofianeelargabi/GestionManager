@@ -26,23 +26,26 @@ import fr.formation.afpa.domain.Compte;
 import fr.formation.afpa.domain.Department;
 import fr.formation.afpa.domain.Employee;
 import fr.formation.afpa.service.ServiceCompte;
+import fr.formation.afpa.service.ServiceDepartment;
 import fr.formation.afpa.service.ServiceEmploye;
 
 @Controller
-public class LogController {
+public class LogController{
 	private static final Log log = LogFactory.getLog(LogController.class);
 	ServiceCompte service;
 	ServiceEmploye serviceEmp; 
-
+	ServiceDepartment serviceDept;
+	
 	public LogController() {
 		System.out.println("constructeur logController Vide");
 	}
 
 	@Autowired
-	public LogController(ServiceCompte service, ServiceEmploye serviceEmp) {
-		System.out.println("constructeur controller compte");
+	public LogController(ServiceCompte service, ServiceEmploye serviceEmp,ServiceDepartment serviceDept) {
+		System.out.println("constructeur controller avec les services");
 		this.service = service;
 		this.serviceEmp = serviceEmp;
+		this.serviceDept= serviceDept;
 	}
 
 	@RequestMapping(path = "/", method = RequestMethod.GET)
@@ -55,30 +58,32 @@ public class LogController {
 	}
 	@RequestMapping(path = "/accueil", method = RequestMethod.GET)
 	public String getAccueilFirstTime() {
-
 		
-
 		return "accueil";
-
 	}
 
 	/*
 	 * Méthode validation Login qui donne accès à l'accueil
 	 */
 	@RequestMapping(path = "/accueil", method = RequestMethod.POST)
-	public String getAccueil(Compte compte, BindingResult result) {
+	public String getAccueil(Compte compte, BindingResult result,HttpServletRequest request) {
+		HttpSession httpSession = request.getSession();
 		try {
-
+			
 			if (service.validation(compte.getLogin(), compte.getPassword()) != null) {
 
 				return "accueil";
 			} else {
 				System.out.println("login ou mdp incorrect");
+				httpSession.setAttribute("error", "**Login et/ou mot de passe incorrect(s)**");/*on utilise ici la session pour avoir accès aau msg dans tte l'application mais on aurait pu utiliser le model pour l'envoyer vers une destination précise*/
+				
+				
 				return "login";
 			}
 
 		} catch (NoResultException nre) {
 			System.out.println("je suis nulle");
+			httpSession.setAttribute("error", "**Login et/ou mot de passe incorrect(s)**");
 			return "login";
 		}
 
@@ -89,7 +94,7 @@ public class LogController {
 
 		List<Employee> employees = serviceEmp.findAll();
 		m.addAttribute("employees", employees);
-
+		
 		return "employes";
 
 	}
@@ -99,7 +104,7 @@ public class LogController {
 
 		List<Employee> employees = serviceEmp.findAll();
 		m.addAttribute("employees", employees);
-
+		
 		return "employes";
 
 	}
@@ -115,7 +120,7 @@ public class LogController {
 	/*affiche l'ajout employé la première fois*/
 	@RequestMapping(path = "/ajoutEmploye", method = RequestMethod.GET)
 	public String getAjoutEmploye(Model m) {
-		List<Employee> employees = serviceEmp.findAll();
+		List<Employee> employees = serviceEmp.findManagers();
 		System.out.println(employees);
 		m.addAttribute("employee",new Employee());
 		m.addAttribute("employees", employees);
@@ -134,17 +139,19 @@ public class LogController {
 		System.out.println("startDate " +startDate);
 		int dptId = Integer.parseInt(dept);
 		
-		Department department = new Department();
+		/*recherche du dept grâce à l'id choisi*/
+		Department department = serviceDept.findById(dptId);
+		
 		Employee employe = serviceEmp.findById(manager);
-		
-		department.setDeptId(dptId);
-		
+
 		employee.setManager(employe);
 		employee.setDepartment(department);
 		
 		
 		System.out.println(employee);
+	    
 	    }
+	    
 		serviceEmp.save(employee);
 	
 		return "redirect:/employeRedirect";
@@ -192,7 +199,7 @@ public class LogController {
 		}
 		/* Valide le changement des paramètres*/
 		@RequestMapping(path = "/parametres", method = RequestMethod.POST)
-		public String getValidParametres(@ModelAttribute Employee emp, BindingResult result,@RequestParam Integer manager,Date startDate) {
+		public String getValidParametres(@ModelAttribute Employee emp,@RequestParam Integer manager,Date startDate) {
 			
 			System.out.println(emp);
 			return "parametre";
@@ -208,14 +215,68 @@ public class LogController {
 	        return "redirect:/";
 	    }
 
-	
-	
-	
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	binder.registerCustomEditor(Date.class, new CustomDateEditor(
-	        dateFormat, false));
-	}
+		@RequestMapping(path = "/contact", method = RequestMethod.GET)
+		public String getContactPage() {
+			
+			return "contact";
+		}
+		
+		/*Supprime l'employé de la bdd*/
+		@RequestMapping(path = "/delete", method = RequestMethod.POST)
+		public String getDeleteEmploye(@RequestParam Integer idToDel) {
+			System.out.println(idToDel);
+			
+			serviceEmp.deleteById(idToDel);
+			
+			return "redirect:/employeRedirect";
+		}
+		
+		/*Affiche l'employé à modifier*/
+		@RequestMapping(path = "/update", method = RequestMethod.GET)
+		public String getEmployeToUpdate(Model m,@RequestParam  Integer idToUp ) {
+			System.out.println(idToUp);
+		List <Employee> managers = serviceEmp.findManagers();	
+		Employee employee =	serviceEmp.findById(idToUp);
+			m.addAttribute("employee", employee);
+			m.addAttribute("managers",managers);
+			
+			return "modifieEmp";
+		}
+		
+		/*Modifie l'employé dans la bdd*/
+		@RequestMapping(path = "/update", method = RequestMethod.POST)
+		public String getUpdateEmploye(Model m,@ModelAttribute Employee employee) {
+		
+			System.out.println("JE SUIS LE NOUVEL EMPLOYE "+ employee);
+			System.out.println("MANAGER " + employee.getManager());
+			
+			
+			serviceEmp.update(employee);
+			return "redirect:/employeRedirect";
+		}
+		
+		/*page about us*/
+		@RequestMapping(path = "/qsm", method = RequestMethod.GET)
+		public String getAboutUs() {
+		
+			return "aboutUs";
+		}
+		
+		/*Cancel modification update*/
+		@RequestMapping(path = "/cancel", method = RequestMethod.GET)
+		public String getCancel() {
+		
+			return "redirect:/employeRedirect";
+		}
+		
+		
+		
+		
+		@InitBinder
+		public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		}
 
 }

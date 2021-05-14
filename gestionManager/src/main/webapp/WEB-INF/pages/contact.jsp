@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" href="css/subordonne.css">
-
+ <link href="css/contactConnecte.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
     <!-- Bootstrap CSS  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,10 +22,7 @@
     <link href="\C:\Users\afpa\Documents\fontawesome/css/all.css" rel="stylesheet">
     <!--load all styles -->
 
-    <!-- MDBootstrap Datatables CSS  -->
-    <link href="css/addons/datatables.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"
         integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A=="
@@ -41,11 +38,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-
-    <!-- MDBootstrap Datatables JS  -->
-    <script type="text/javascript" src="js/addons/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
 </head>
 <body>
 <div class="head">
@@ -107,65 +99,41 @@
         </ul>
         </div>
         
-        
-        
-        
     </nav>
 	
 	<div class="langues">
         
-        <a href="${pageContext.request.contextPath}/accueil?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
-	   <a href="${pageContext.request.contextPath}/accueil?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+        <a href="${pageContext.request.contextPath}/contact?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/contact?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
     </div>
     
     </div>
-
-
-
-
-
-<div class="tit">Liste des subordonnés hiérarchiques</div>
-
-	<div class="table-responsive ticketList">
-		<table id="dtBasicExample" class="table table-striped table-bordered table-sm table" cellspacing="0"
-                width="100%">
-			<thead>
-				<tr>
-
-					<th class="th-sm">Nom</th>
-					<th class="th-sm">Prenom</th>
-					<th class="th-sm">Date début</th>
-					<th class="th-sm">Titre</th>
-					
-					
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${subordonnes}" var="subordonne">
-					<tr >
-						<td>${subordonne.firstName}</td>
-						<td>${subordonne.lastName }</td>
-						<td>${subordonne.startDate }</td>
-						<td>${subordonne.title }</td>
-						
-					</tr>
-				</c:forEach>
-				
-
-			</tbody>
-			<tfoot>
-				<tr>
-
-					<th>Nom</th>
-					<th>Prenom</th>
-					<th>Date début</th>
-					<th>Titre</th>
-					
-				</tr>
-			</tfoot>
-		</table>
-	</div>
- <script src="js/jsImports.js"></script>
+    
+    <div class="tit"><spring:message code="contact.titre"></spring:message></div>
+<div class="bloc">
+    <div class="container1">
+      <form >
+        <label for="fname">Nom</label>
+        <input type="text" id="fname" name="firstname" placeholder="Votre nom..">
+    
+        <label for="lname">Prénom</label>
+        <input type="text" id="lname" name="lastname" placeholder="Votre prénom..">
+    
+        <label for="country">Pays</label>
+        <select id="country" name="country">
+        <option value="usa">France</option>
+          <option value="australia">Australie</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+    
+        <label for="subject">Sujet</label>
+        <textarea id="subject" name="subject" placeholder="Ecrivez ici.." style="height:130px"></textarea>
+    
+        <input type="submit" value="Envoyer" class="but">
+      </form>
+    </div>
+</div>
 <%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
 </body>
 </html>

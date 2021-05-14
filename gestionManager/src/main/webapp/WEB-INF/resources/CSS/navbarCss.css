@@ -1,8 +1,8 @@
 
 
-  .nav-link{
-    font-size: 20px;
-   }
+.nav .form .item .btn {
+	font-size: 18.5px;
+}
    .navbar-dark .navbar-nav .nav-item .nav-link{
      color: rgb(238, 232, 232);
      font-style: italic;
@@ -12,12 +12,18 @@
     position:relative;
   }
 
-  .navbar-dark{
-   
-    background-image:url(stars2.jpg);
-    background-size: unset;
-  
-  }
+.navbar-dark {
+	background-image: url(stars2.jpg);
+	background-size: unset;
+	display:flex;
+	justify-content:space-between;
+}
+.head{
+	background-image: url(stars2.jpg);
+	background-size: unset;
+	display:flex;
+	justify-content:space-between;
+}
 .langues{
 	margin-left:60%;
 }

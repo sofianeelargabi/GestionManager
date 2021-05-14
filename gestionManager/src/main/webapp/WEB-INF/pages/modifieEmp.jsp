@@ -51,8 +51,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 	crossorigin="anonymous"></script>
-
-
 </head>
 <body>
 <div class="head">
@@ -121,19 +119,22 @@
 	
 	<div class="langues">
         
-        <a href="${pageContext.request.contextPath}/ajoutEmploye?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
-	   <a href="${pageContext.request.contextPath}/ajoutEmploye?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+        <a href="${pageContext.request.contextPath}/update?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/update?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
     </div>
     
     </div>
-    
 
 
 
-	<div class="tit"><spring:message code="addEmp.title"></spring:message></div>
+
+	<div class="tit">
+		<spring:message code="modifEmp.title"></spring:message>
+	</div>
 	<div class="gen2">
-		<form:form action="ajoutEmploye" method="post" modelAttribute="employee">
-
+		<form:form action="update" method="post" modelAttribute="employee">
+			<form:hidden path="empId"/>	
+			<form:hidden path="startDate"/>
 			<div class="row mb-4 inpu">
 
 				<div class="col">
@@ -141,8 +142,7 @@
 						<spring:message code="emp.placeholderName" var="placeholderName" />
 						<form:input type="text" id="form6Example2" path="firstName"
 							class="form-control" placeholder='${placeholderName}' />
-						<label class="info" class="form-label" for="form6Example2"><spring:message
-								code="emp.nom" /></label>
+						<label class="info" class="form-label" for="form6Example2"><spring:message code="emp.nom" /></label>
 					</div>
 				</div>
 			</div>
@@ -155,14 +155,13 @@
 						code="emp.prenom" /></label>
 			</div>
 
-			<div class="form-outline mb-4">
+			<%-- <div class="form-outline mb-4">
 				<spring:message code="emp.placeholderDate" var="placeholderDate" />
-				<form:input type="date" id="form6Example5" path="startDate"
-					class="form-control" placeholder='${placeholderDate }' />
+				<input type="text" name="startDate" id="form6Example5" value = "${employee.startDate}" class="form-control" />
 				<label class="info" class="form-label" for="form6Example5"><spring:message
 						code="emp.date" /></label>
 			</div>
-
+ --%>
 			<div class="form-outline mb-4">
 				<spring:message code="emp.placeholderTitle" var="placeholderTitle" />
 				<form:input type="text" id="tit" path="title" class="form-control"
@@ -170,36 +169,100 @@
 				<label class="info" class="form-label" for="tit"><spring:message
 						code="emp.titre" /></label>
 			</div>
+			<c:choose>
+				<c:when test="${employee.manager==null}">
+				<form:select path="manager.empId" class="form-select" aria-label="Default select example">
+						<form:option value=""><spring:message code="addEmp.chooseManag"></spring:message></form:option>
+						<c:forEach items="${managers}" var="manager">
+							<form:option value="${manager.empId}" var="id" required="true">${manager.firstName} ${manager.lastName} </form:option>
+						</c:forEach>
 
+					</form:select>
+				</c:when>
+				<c:otherwise>
+					<form:select path="manager.empId" class="form-select" aria-label="Default select example">
+					
+						<form:option value="${employee.manager.empId}">${employee.manager.firstName} ${employee.manager.lastName}</form:option>
+						<c:forEach items="${managers}" var="manager" >
+						<c:if test="${manager.empId ne employee.manager.empId && manager.empId ne employee.empId}">
+							<form:option value="${manager.empId}" var="id" required="true">${manager.firstName} ${manager.lastName} </form:option>
+						</c:if>
+						</c:forEach>
 
-			<form:select path="manager" class="form-select"
-				aria-label="Default select example">
-				<form:option value=""><spring:message code="addEmp.chooseManag"></spring:message></form:option>
-				<c:forEach items="${employees}" var="employee">
-					<form:option value="${employee.empId}" var="id" required="true">${employee.firstName} ${employee.lastName} </form:option>
-				</c:forEach>
-				
-			</form:select>
-
-		<br>
-		<br>
-			<select class="form-select" name="dept" id="dept-select">
-				<option value=""><spring:message code="addEmp.chooseDept"></spring:message></option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			</select>
+					</form:select>
+				</c:otherwise>
+			</c:choose>
+			<br>
+			<br>
+			<c:choose>
+				<c:when test="${employee.department.deptId==null}">
+					<form:select class="form-select" path="department.deptId" name="dept"
+						id="dept-select">
+						<form:option value="">
+							<spring:message code="addEmp.chooseDept"></spring:message>
+						</form:option>
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+					</form:select>
+				</c:when>
+				<c:when test="${employee.department.deptId=='1'}">
+					<form:select class="form-select" path="department.deptId" name="dept"
+						id="dept-select">
+						<form:option value="${employee.department.deptId}"></form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+					</form:select>
+				</c:when>
+				<c:when test="${employee.department.deptId=='2'}">
+					<form:select class="form-select" path="department.deptId" name="dept"
+						id="dept-select">
+						<form:option value="${employee.department.deptId}"></form:option>
+						<form:option value="1">1</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+					</form:select>
+				</c:when>
+				<c:when test="${employee.department.deptId=='3'}">
+					<form:select class="form-select" path="department.deptId" name="dept"
+						id="dept-select">
+						<form:option value="${employee.department.deptId}"></form:option>
+						<form:option value="2">1</form:option>
+						<form:option value="3">2</form:option>
+						<form:option value="4">4</form:option>
+					</form:select>
+				</c:when>
+				<c:when test="${employee.department.deptId=='4'}">
+					<form:select class="form-select" path="department.deptId" name="dept"
+						id="dept-select">
+						<form:option value="${employee.department.deptId}"></form:option>
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+					</form:select>
+				</c:when>
+			</c:choose>
 			<!-- Submit button -->
 
-			<div class="save">
-				<button type="submit" onclick="return onButtonClick();" class="btn btn-primary btn-block mb-4"><spring:message code="addEmp.save"></spring:message></button>
+			<div class="btns">
+				<button type="submit" onclick="return onButtonUpdate();"
+					class="btn btn-light">
+					<spring:message code="addEmp.save"></spring:message>
+				</button>
+				<form:form action="cancel" method="get">
+				<button type="submit" onclick="return onButtonCancel();"
+					class="btn btn-light">
+					<spring:message code="addEmp.cancel"></spring:message>
+				</button>
+				</form:form>
 			</div>
+		
 
 		</form:form>
 	</div>
 	<script src="js/jsImports.js"></script>
 <%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
 </body>
-
 </html>

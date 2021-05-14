@@ -55,4 +55,10 @@ public class ServiceEmploye {
 	public List<Employee> getSubordonnes(Integer empId) {
 		return dao.getSubordonnes(empId);
 	}
+	public void deleteById(Integer id) {
+		dao.deleteById(id);
+	}
+	public Employee update(Employee e) {
+		return dao.update(e);
+	}
 }

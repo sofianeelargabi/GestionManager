@@ -42,30 +42,51 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-light navbar-dark">
+<div class="head">
+	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
     
-
-        
-        
         <div class="navbar-brand" >
-            <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=120 width=110>  </a>  
+            <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=105
+                    width=110> </a>
         </div>
-       <ul class="navbar-nav">
-      
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><spring:message code="login.QSM"></spring:message></a>
-        </li>
-        <li class="nav-item" id="deco">
-          <a class="nav-link active" href="#"><spring:message code="login.connexion"></spring:message></a>
-        </li>
-      </ul>
-      <div class="langues">
-    <a href="${pageContext.request.contextPath}/?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
-	<a href="${pageContext.request.contextPath}/?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
-    </div>
+        
+        <div>
+        <ul class="navbar-nav nav">
+        <form:form class="form" action="accueilConnecte" method="get">
+            <li class="nav-item item">
+                <a><button class="nav-link btn"><spring:message code="nav.accueil"></spring:message></button></a>
+            </li>
+            </form:form>
+         
+           
+         
+        
+            <form:form class="form" action="contact" method="get">
+            <li class="nav-item item">
+               <a><button class="nav-link btn">Contact</button></a>
+            </li>
+            </form:form>
+             <form:form class="form" action="qsm" method="get">
+            <li class="nav-item item">
+                <a><button class="nav-link btn"><spring:message code="login.QSM"></spring:message></button></a>
+            </li>
+            </form:form>
+            
+            
+        </ul>
+        </div>
+        
+        
+        
+        
     </nav>
+	
+	<div class="langues">
+        
+        <a href="${pageContext.request.contextPath}/?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+    </div>
+    
+    </div>
 </body>
 </html>

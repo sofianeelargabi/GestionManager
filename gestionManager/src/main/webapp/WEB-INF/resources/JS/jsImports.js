@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 function onButtonClick(){       
 var answer;   
-answer = window.confirm("Etes-vous sûr de vouloir ajouter ce client ?");     
+answer = window.confirm("Etes-vous sûr de vouloir ajouter cet employé ?");     
  if (answer == true) {
      return true;
   } else {
@@ -23,4 +23,31 @@ function onButtonDeco(){
 	     return false;
 	  }
 	}
+function onButtonDelete(){       
+	var answer;   
+	answer = window.confirm("Etes-vous sûr de vouloir supprimer cet employé ?");     
+	 if (answer == true) {
+	     return true;
+	  } else {
+	     return false;
+	  }
+	}
 
+function onButtonUpdate(){
+	var answer;   
+	answer = window.confirm("Etes-vous sûr de vouloir modifier cet employé ?");     
+	 if (answer == true) {
+	     return true;
+	  } else {
+	     return false;
+	  }
+}
+function onButtonCancel(){
+	var answer;   
+	answer = window.confirm("Etes-vous sûr de vouloir annuler la modification ?");     
+	 if (answer == true) {
+	     return true;
+	  } else {
+	     return false;
+	  }
+}

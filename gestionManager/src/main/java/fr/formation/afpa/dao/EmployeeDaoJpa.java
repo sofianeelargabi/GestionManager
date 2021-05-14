@@ -51,7 +51,10 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	}
 
 	public Employee update(Employee e) {
-		return em.merge(e);
+		beginTransaction();
+		 em.merge(e);
+		 commitTransaction();
+		return e;
 	}
 
 	public void delete(Employee e) {
@@ -59,8 +62,10 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	}
 
 	public void deleteById(Integer id) {
+		beginTransaction();
 		Employee emp = findById(id);
 		delete(emp);
+		commitTransaction();
 	}
 
 	@SuppressWarnings("unchecked")

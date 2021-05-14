@@ -73,11 +73,14 @@
 					value="<spring:message code="login.connexion"></spring:message>"
 					class="btn btn-primary btn-block">
 			</div>
+			
 			<a href="#" class="forgot"><spring:message code="login.mdpOublie"></spring:message></a>
+			<div class="error">${error}</div>
+			
 		</form:form>
 	</div>
-
-
+			
+<%@ include file="/WEB-INF/resources/Include/footer.jsp"%>
 </body>
 
 </html>

@@ -132,13 +132,13 @@
     
     </div>
     
-	<form:form action="parametres" method="post" modelAttribute="emp">
+	<form:form action="parametres" method="post" modelAttribute="employeeForm">
 
         <div class="table-responsive ticketList">
-            <table id="dtBasicExample" class="table table-striped w-auto" cellspacing="0"
-                width="100%">
+            <table id="dtBasicExample" class="table table-striped w-auto">
                 <thead>
                     <tr>
+                        <th>No.</th>
                         
                         <th class="th-sm"><spring:message code="tab.nom"></spring:message>
 
@@ -152,39 +152,43 @@
                         <th class="th-sm"><spring:message code="tab.titre"></spring:message>
 
                         </th>
+                        
                         <th class="th-sm"><spring:message code="tab.choixManager"></spring:message>
 
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${parametres}" var="emp">
+                <c:forEach items="${employeeForm.employees}" var="employee"  varStatus="status">
 					<tr>
-						<td>${emp.firstName}</td>
-						<td>${emp.lastName }</td>
-						<td>${emp.startDate }</td>
-						<td>${emp.title }</td>
+					    <td align="center">${status.count}</td>
+						<td><input name="employees[${status.index}].firstName" value="${employee.firstName}"/></td>
+						<td><input name="employees[${status.index}].lastName" value="${employee.lastName}"/></td>
+						<td><input name="employees[${status.index}].startDate" value="${employee.startDate}" /></td>
+						<td><input name="employees[${status.index}].title" value="${employee.title}" /></td>
 						<td>
-						<form:select path="manager" class="form-select" aria-label="Default select example">
+						<form:select  path="employees[${status.index}].manager.empId" aria-label="Default select example">
 						<form:option value="" label="--- Manager ---"/>
 						<c:forEach  items="${managers}" var="manager">
-						<form:option  value="${manager.firstName} ${manager.lastName}" var="id"/>
-				
+						<form:option name="employees[${status.index}].manager.empId" var="id" value="${manager.empId}" >${manager.firstName} ${manager.lastName}</form:option>
+						
 			   			 </c:forEach>
-			    		<form:hidden path="manager" value="${id}" />
+			    		<input type="hidden" name="id" value="${id}"/>
 						</form:select>
 						
 						
 						
 						
 						</td>
+						<td><input type="hidden" name="employees[${status.index}].empId" value="${employee.empId}" /></td>
 						
 					</tr>
 				</c:forEach>
                  </tbody>
                 <tfoot>
                     <tr>
-                        <th><spring:message code="tab.nom"></spring:message>m
+                    	<th>No.</th>
+                        <th><spring:message code="tab.nom"></spring:message>
                         </th>
                         <th><spring:message code="tab.prenom"></spring:message>
                         </th>

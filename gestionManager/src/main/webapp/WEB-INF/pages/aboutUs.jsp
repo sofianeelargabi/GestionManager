@@ -54,14 +54,15 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-light navbar-dark">
+<div class="head">
+	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
     
-
-        
         <div class="navbar-brand" >
             <a href="#"> <img src="img/manager.png" alt="saj logo" class="logo align-self-center" height=105
                     width=110> </a>
         </div>
+        
+        <div>
         <ul class="navbar-nav nav">
         <form:form class="form" action="accueilConnecte" method="get">
             <li class="nav-item item">
@@ -94,7 +95,7 @@
             </form:form>
             <form:form class="form" action="contact" method="get">
             <li class="nav-item item">
-                <a><button class="nav-link btn">Contact</button></a>
+               <a><button class="nav-link btn">Contact</button></a>
             </li>
             </form:form>
              <form:form class="form" action="qsm" method="get">
@@ -108,12 +109,22 @@
       
             </li>
             </form:form>
+            
         </ul>
-        <div class="langues">
-        <a href="${pageContext.request.contextPath}/employeRedirect?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
-	   <a href="${pageContext.request.contextPath}/employeRedirect?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
-    </div>
+        </div>
+        
+        
+        
+        
     </nav>
+	
+	<div class="langues">
+        
+        <a href="${pageContext.request.contextPath}/qsm?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/qsm?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+    </div>
+    
+    </div>
 
 
 

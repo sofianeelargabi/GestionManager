@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.formation.afpa.domain.Compte;
 import fr.formation.afpa.domain.Department;
 import fr.formation.afpa.domain.Employee;
+import fr.formation.afpa.domain.EmployeeForm;
 import fr.formation.afpa.service.ServiceCompte;
 import fr.formation.afpa.service.ServiceDepartment;
 import fr.formation.afpa.service.ServiceEmploye;
@@ -71,6 +72,7 @@ public class LogController{
 		try {
 			
 			if (service.validation(compte.getLogin(), compte.getPassword()) != null) {
+				httpSession.setAttribute("error", "**Login et/ou mot de passe incorrect(s)**");
 
 				return "accueil";
 			} else {
@@ -188,21 +190,41 @@ public class LogController{
 		/* Affiche la page des paramètres*/
 		@RequestMapping(path = "/parametres", method = RequestMethod.GET)
 		public String getParametres(Model m) {
-			List<Employee> managers = serviceEmp.findManagers();
+			
+			EmployeeForm employeeForm =  new EmployeeForm();
+					
+
 			List<Employee> empSansManag = serviceEmp.findEmpSansManager();
-			System.out.println(empSansManag);
-			m.addAttribute("emp",new Employee());
-			m.addAttribute("parametres", empSansManag);
+			employeeForm.setEmployees(empSansManag);	
+			
+			List<Employee> managers = serviceEmp.findManagers();
+			
+			
+			m.addAttribute("employeeForm", employeeForm);
 			m.addAttribute("managers", managers);
+			
 			return "parametre";
 
 		}
 		/* Valide le changement des paramètres*/
 		@RequestMapping(path = "/parametres", method = RequestMethod.POST)
-		public String getValidParametres(@ModelAttribute Employee emp,@RequestParam Integer manager,Date startDate) {
+		public String getValidParametres(@ModelAttribute EmployeeForm employeeForm) {
 			
-			System.out.println(emp);
-			return "parametre";
+		List<Employee> list = employeeForm.getEmployees();
+			for(Employee e : list) {
+				for (int i=0;i<5;i++)System.out.println(e.toString());
+				Integer idManager = e.getManager().getEmpId();
+				for (int i=0;i<5;i++)System.out.println(idManager);
+				if(idManager!=null) {
+				e.setManager(serviceEmp.findById(idManager));
+				for (int i=0;i<5;i++)System.out.println(e.getManager().toString());
+				System.out.println(e);
+				
+				serviceEmp.update(e);
+			}
+			}
+			
+			return "redirect:/employeRedirect";
 
 		}
 		
@@ -249,7 +271,8 @@ public class LogController{
 		
 			System.out.println("JE SUIS LE NOUVEL EMPLOYE "+ employee);
 			System.out.println("MANAGER " + employee.getManager());
-			
+			Integer idManager = employee.getEmpId();
+			Integer idDept = employee.getDepartment().getDeptId();
 			
 			serviceEmp.update(employee);
 			return "redirect:/employeRedirect";

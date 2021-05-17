@@ -3,6 +3,7 @@ package fr.formation.afpa.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +22,7 @@ public class Department {
 	@Column(name="DEPT_ID",unique = true, nullable = false)
 	private Integer deptId;
 
+	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "department")
 	private Set <Employee> employees = new HashSet<Employee>();
 

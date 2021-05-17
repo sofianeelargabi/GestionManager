@@ -24,6 +24,7 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	public void beginTransaction() {
 		em = enf.createEntityManager();
 		em.getTransaction().begin(); // charge la transaction
+		
 	}
 
 	public void commitTransaction() {
@@ -52,8 +53,11 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 
 	public Employee update(Employee e) {
 		beginTransaction();
-		 em.merge(e);
-		 commitTransaction();
+	
+		em.merge(e);	 
+		
+
+		commitTransaction();
 		return e;
 	}
 

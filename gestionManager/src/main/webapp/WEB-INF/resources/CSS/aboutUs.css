@@ -66,13 +66,6 @@ html {
     display: block;
   }
 }
-a.nav-link{
-   font-size:15px;
-}
-.nav-link {
-	font-size: 20px;
-}
-
 .navbar-nav {
 	color: rgb(0, 0, 0);
 }
@@ -90,6 +83,14 @@ body {
 .navbar-dark {
 	background-image: url(stars2.jpg);
 	background-size: unset;
+	display:flex;
+	justify-content:space-between;
+}
+.head{
+	background-image: url(stars2.jpg);
+	background-size: unset;
+	display:flex;
+	justify-content:space-between;
 }
 
 .nav .form .item .btn {
@@ -111,7 +112,9 @@ body {
 	background-color: rgb(153, 153, 153);
 }
 
-
 .langues{
 	margin-left:35%;
 }
+.btnValid{
+	display:flex;
+	justify-content:center

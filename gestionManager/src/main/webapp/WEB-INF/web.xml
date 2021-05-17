@@ -5,7 +5,5 @@
     <welcome-file>login.jsp</welcome-file>
   
   </welcome-file-list>
-    <listener>
-        <listener-class>fr.formation.afpa.Interceptor.AttributeListener</listener-class>
-    </listener>
+   
 </web-app>

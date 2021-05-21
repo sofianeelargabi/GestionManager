@@ -77,7 +77,7 @@ public class EmployeeDaoJpa implements IEmployeeDaoJpa {
 	public List<Employee> findManagers() {
 
 		List<Employee> list = em
-				.createQuery("from Employee WHERE empId IN (SELECT manager FROM Employee))", Employee.class)
+				.createQuery("from Employee WHERE empId IN (SELECT manager FROM Employee)", Employee.class)
 				.getResultList();
 		return list;
 

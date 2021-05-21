@@ -183,7 +183,7 @@
 
 		<br>
 		<br>
-			<select class="form-select" name="dept" id="dept-select">
+			<select class="form-select" name="deptId" id="dept-select">
 				<option value=""><spring:message code="addEmp.chooseDept"></spring:message></option>
 				<option value="1">1</option>
 				<option value="2">2</option>

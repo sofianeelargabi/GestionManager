@@ -155,13 +155,13 @@
 						code="emp.prenom" /></label>
 			</div>
 
-			<%-- <div class="form-outline mb-4">
+			 <div class="form-outline mb-4">
 				<spring:message code="emp.placeholderDate" var="placeholderDate" />
 				<input type="text" name="startDate" id="form6Example5" value = "${employee.startDate}" class="form-control" />
 				<label class="info" class="form-label" for="form6Example5"><spring:message
 						code="emp.date" /></label>
 			</div>
- --%>
+
 			<div class="form-outline mb-4">
 				<spring:message code="emp.placeholderTitle" var="placeholderTitle" />
 				<form:input type="text" id="tit" path="title" class="form-control"

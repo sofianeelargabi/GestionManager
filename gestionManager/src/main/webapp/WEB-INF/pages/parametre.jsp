@@ -68,18 +68,19 @@
                     width=110> </a>
         </div>
         
-        <div>
+        <div class="milieu">
         <ul class="navbar-nav nav">
         <form:form class="form" action="accueilConnecte" method="get">
             <li class="nav-item item">
                 <a><button class="nav-link btn"><spring:message code="nav.accueil"></spring:message></button></a>
             </li>
             </form:form>
+            
             <form:form class="form" action="manager" method="get">
             <li class="nav-item item">
             <a><button class="nav-link btn">Managers</button></a>
             </li>
-              </form:form>
+            </form:form>
            
             <li class="nav-item dropdown " >
               <a class="nav-link dropdown down" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><spring:message code="nav.employes"></spring:message> </a>
@@ -109,27 +110,29 @@
                 <a><button class="nav-link btn"><spring:message code="login.QSM"></spring:message></button></a>
             </li>
             </form:form>
-             <form:form class="form" action = "logout" method="get">
-            <li class="nav-item item" id="deco">
-            <a><button onclick="return onButtonDeco();" class="nav-link btn"><spring:message code="nav.deco"></spring:message></button></a>
-      
-            </li>
-            </form:form>
+            
             
         </ul>
         </div>
-        
-        
-        
-        
-    </nav>
-	
-	<div class="langues">
-        
-        <a href="${pageContext.request.contextPath}/parametres?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
-	   <a href="${pageContext.request.contextPath}/parametresaccueil?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
-    </div>
     
+    
+   
+    
+   
+    </nav>
+     <div class="langues">
+   		 <div class="nav-item item" id="deco">
+          <form:form class="form" action = "logout" method="get">
+              <a><button id="deconnexion" onclick="return onButtonDeco();" class="nav-link btn"><spring:message code="nav.deco"></spring:message></button></a>
+            </form:form>
+            </div>
+            
+            <div>
+        <a href="${pageContext.request.contextPath}/parametres?lang=en"><img src="img/angleterre.png" alt="English" height=30 width=30 /></a>
+	   <a href="${pageContext.request.contextPath}/parametres?lang=fr"><img src="img/france.png" alt="Français" height=30 width=30 /></a>
+        </div>
+    
+    </div>    
     </div>
     
 	<form:form action="parametres" method="post" modelAttribute="employeeForm">
@@ -162,25 +165,23 @@
                 <c:forEach items="${employeeForm.employees}" var="employee"  varStatus="status">
 					<tr>
 					    <td align="center">${status.count}</td>
-						<td><input name="employees[${status.index}].firstName" value="${employee.firstName}"/></td>
-						<td><input name="employees[${status.index}].lastName" value="${employee.lastName}"/></td>
-						<td><input name="employees[${status.index}].startDate" value="${employee.startDate}" /></td>
-						<td><input name="employees[${status.index}].title" value="${employee.title}" /></td>
+						<td ><input name="employees[${status.index}].firstName" value="${employee.firstName}" readonly/></td>
+						<td><input name="employees[${status.index}].lastName" value="${employee.lastName}" readonly/></td>
+						<td><input name="employees[${status.index}].startDate" value="${employee.startDate}" readonly/></td>
+						<td><input name="employees[${status.index}].title" value="${employee.title}" readonly /></td>
 						<td>
 						<form:select  path="employees[${status.index}].manager.empId" aria-label="Default select example">
 						<form:option value="" label="--- Manager ---"/>
 						<c:forEach  items="${managers}" var="manager">
+						<c:if test="${manager.empId ne employee.manager.empId && manager.empId ne employee.empId}">
 						<form:option name="employees[${status.index}].manager.empId" var="id" value="${manager.empId}" >${manager.firstName} ${manager.lastName}</form:option>
-						
+						</c:if>
 			   			 </c:forEach>
 			    		<input type="hidden" name="id" value="${id}"/>
 						</form:select>
-						
-						
-						
-						
+						<input type="hidden" name="employees[${status.index}].empId" value="${employee.empId}" />
+
 						</td>
-						<td><input type="hidden" name="employees[${status.index}].empId" value="${employee.empId}" /></td>
 						
 					</tr>
 				</c:forEach>
@@ -203,7 +204,7 @@
             </table>
             <br><br>
             <div class="btnValid">
-            <input type="submit" value="Valider" class="btn btn-primary">
+            <input type="submit" value="Valider" class="btn btn-dark btn-lg">
             </div>
         </div>
     

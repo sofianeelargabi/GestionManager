@@ -261,7 +261,8 @@ public class LogController{
 		Employee employee =	serviceEmp.findById(idToUp);
 			m.addAttribute("employee", employee);
 			m.addAttribute("managers",managers);
-			
+			System.out.println(managers);
+			System.out.println();
 			return "modifieEmp";
 		}
 		
@@ -271,9 +272,8 @@ public class LogController{
 		
 			System.out.println("JE SUIS LE NOUVEL EMPLOYE "+ employee);
 			System.out.println("MANAGER " + employee.getManager());
-			Integer idManager = employee.getEmpId();
-			Integer idDept = employee.getDepartment().getDeptId();
-			
+	
+		
 			serviceEmp.update(employee);
 			return "redirect:/employeRedirect";
 		}
